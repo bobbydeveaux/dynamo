@@ -18,7 +18,9 @@ const offlineSkipMsg = "DYNAMO_TEST_REGION not set"
 
 func init() {
 	if region := os.Getenv("DYNAMO_TEST_REGION"); region != "" {
-		testDB = New(session.New(), &aws.Config{Region: aws.String(region)})
+		testDB = New(session.New(), &aws.Config{
+			Endpoint: aws.String("http://localhost:8000"),
+			Region: aws.String(region)})
 	}
 	if table := os.Getenv("DYNAMO_TEST_TABLE"); table != "" {
 		testTable = table
